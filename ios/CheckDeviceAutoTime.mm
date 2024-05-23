@@ -1,19 +1,25 @@
 #import "CheckDeviceAutoTime.h"
+#import <React/RCTBridgeModule.h>
+#import <CoreLocation/CoreLocation.h>
 
 @implementation CheckDeviceAutoTime
+
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_EXPORT_METHOD(multiply:(double)a
-                  b:(double)b
-                  resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject)
-{
-    NSNumber *result = @(a * b);
 
-    resolve(result);
+
+RCT_REMAP_METHOD(isAutomaticTimeEnabled,
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject) {
+    @try {
+        NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+        NSTimeZone *systemTimeZone = [NSTimeZone systemTimeZone];
+        BOOL isAutoTimeEnabled = [localTimeZone isEqualToTimeZone:systemTimeZone];
+        resolve(@(isAutoTimeEnabled));
+    }
+    @catch (NSException *exception) {
+        reject(@"SettingsError", @"Could not retrieve automatic time setting.", nil);
+    }
 }
-
 
 @end

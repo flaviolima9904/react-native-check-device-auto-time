@@ -1,7 +1,7 @@
 {
   "name": "react-native-check-device-auto-time",
   "version": "0.1.0",
-  "description": "React native lib to check if the device's automatic time setting is enabled",
+  "description": "A React Native library to check if the device's automatic time setting is enabled on both Android and iOS platforms using native code.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
